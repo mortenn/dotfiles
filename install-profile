@@ -3,7 +3,7 @@ function install_profile {
 	if [ -e $1 ]; then
 		rm $1;
 	fi
-	wget --no-check-certificate https://raw.githubusercontent.com/mortenn/dotfiles/master/$1
+	curl -s https://raw.githubusercontent.com/mortenn/dotfiles/master/$1 > $1
 	popd > /dev/null
 }
 install_profile beautify.sh
