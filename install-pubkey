@@ -1,5 +1,5 @@
 function install-key {
-	pushd ~/.ssh
+	pushd ~/.ssh > /dev/null
 	ssh_key=$(curl -s https://raw.githubusercontent.com/mortenn/dotfiles/master/$1 2> /dev/null)
 	name=$(echo $ssh_key | awk '$1=="ssh-rsa"{print $3}{next}')
 	if [ -z "$name" ]; then
@@ -10,7 +10,7 @@ function install-key {
 		echo "Installing $1"
 		echo "$ssh_key" >> authorized_keys	
 	fi
-	popd
+	popd > /dev/null
 }
 
 cd ~
