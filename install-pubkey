@@ -1,19 +1,26 @@
+function install-key {
+	pushd ~/.ssh
+	ssh_key=$(curl -s https://raw.githubusercontent.com/mortenn/dotfiles/master/$1 2> /dev/null)
+	name=$(echo $ssh_key | awk '$1=="ssh-rsa"{print $3}{next}')
+	if [ -z "$name" ]; then
+		echo "$1 is an invalid key!"
+	elif grep -q "$ssh_key" authorized_keys; then
+		echo "$1 has already been installed!"
+	else
+		echo "Installing $1"
+		echo "$ssh_key" >> authorized_keys	
+	fi
+	popd
+}
+
 cd ~
 if [ ! -d .ssh ]; then
 	mkdir .ssh
 	chmod 700 .ssh
 fi
-ssh_key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCXdlqSbdik26lthWlS+4Y4Xk+lhpjNxrf+xZR6SeYTIUIockEb35ADNZ/wGVdK1yXu8rWPnGrA2P8k0rwQ7nD0txtVzIkoqrhtPowe2HNgC+PW9Yrqmg8eNf+a/YLcwOQItMId9uRoCK5d5kxQFU2T6Jj4Si10Hp/iKOA0Mh5FEaeDdTA3PRaEPggECM0nmKo9nqlBKM4f+8JRZ15mTF7iOIY6Pgkji1BhZE0GAiy0Wnr2mZ9ir3673gcqR5oIy6WYBXVrdgvio2F+CdPdKZs7AVKzOtJfShemFOU75FwPlx6H4hfztLSPV4e2h38rXikFLBaei1nGQw1oZbMTJ3f mortenn@tsunami.lan.4th-age.com"
-pushd .ssh
-if [ -e authorized_keys ]; then
-	if grep -q "$ssh_key" authorized_keys; then
-		echo 'Already installed'
-	else
-		echo $ssh_key >> authorized_keys
-		echo 'Key installed'
-	fi
-else
-	echo $ssh_key > authorized_keys
+if [ ! -e authorized_keys ]; then
+	touch authorized_keys
 	chmod 600 authorized_keys
 fi
-popd
+
+install-key desktop.pub
