@@ -24,3 +24,4 @@ if [ ! -e authorized_keys ]; then
 fi
 
 install-key desktop.pub
+install-key work.pub
