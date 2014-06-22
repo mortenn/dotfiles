@@ -1,0 +1,11 @@
+function install_profile {
+	pushd /etc/profile.d
+	if [ -e $1 ]; then
+		rm $1;
+	fi
+	wget https://raw.githubusercontent.com/mortenn/dotfiles/master/$1
+	popd
+}
+install_profile beautify.sh
+install_profile aliases.sh
+install_profile prompt.sh
