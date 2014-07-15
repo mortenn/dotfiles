@@ -18,9 +18,9 @@ if [ ! -d .ssh ]; then
 	mkdir .ssh
 	chmod 700 .ssh
 fi
-if [ ! -e authorized_keys ]; then
-	touch authorized_keys
-	chmod 600 authorized_keys
+if [ ! -e .ssh/authorized_keys ]; then
+	touch .ssh/authorized_keys
+	chmod 600 .ssh/authorized_keys
 fi
 
 install-key desktop.pub
