@@ -25,3 +25,4 @@ fi
 
 install-key desktop.pub
 install-key work.pub
+install-key laptop.pub
