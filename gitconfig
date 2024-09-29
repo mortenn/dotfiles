@@ -1,0 +1,24 @@
+[init]
+  defaultBranch = main
+
+[pull]
+  rebase = true
+
+[push]
+  autoSetupRemote = true
+  default = current
+
+[gpg]
+  format = ssh
+
+[commit]
+  gpgsign = true
+
+[alias]
+  undo = reset --soft HEAD^
+
+[core]
+  pager = delta
+
+[delta]
+  line-numbers = true
